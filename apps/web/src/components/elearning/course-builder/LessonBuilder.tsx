@@ -36,7 +36,7 @@ import {
 } from "lucide-react";
 
 // Content block types
-interface ContentBlock {
+export interface ContentBlock {
   id: string;
   type: "text" | "image" | "video" | "audio" | "interactive" | "quiz" | "reflection";
   title: string;
@@ -52,7 +52,7 @@ interface ContentBlock {
 }
 
 // Lesson structure based on Gagne's Nine Events
-interface LessonSection {
+export interface LessonSection {
   id: string;
   title: string;
   description: string;
@@ -62,7 +62,7 @@ interface LessonSection {
   order: number;
 }
 
-interface Lesson {
+export interface Lesson {
   id: string;
   title: string;
   description: string;
@@ -83,7 +83,7 @@ interface Lesson {
   order: number;
 }
 
-interface LessonBuilderProps {
+export interface LessonBuilderProps {
   initialLesson?: Partial<Lesson>;
   onSave: (lesson: Lesson) => void;
   onCancel: () => void;
@@ -713,3 +713,4 @@ function ContentBlockEditor({ block, onSave, onCancel }: ContentBlockEditorProps
     </Card>
   );
 }
+
