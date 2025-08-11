@@ -36,11 +36,11 @@ function takeActionOrGeneratePlan(
 function routeToApprovalOrPlan(
   state: PlannerGraphState,
 ): "content-analysis-approval" | "learning-design-approval" | "course-structure-approval" | "interrupt-proposed-plan" {
-  const { messages, plan } = state;
+  const { messages, taskPlan } = state;
   
   // Check if this is an e-learning related request that needs approval
   const requestText = messages.map(msg => msg.content.toString().toLowerCase()).join(' ');
-  const planText = plan?.map(item => item.description || item.title || '').join(' ').toLowerCase() || '';
+  const planText = taskPlan?.items?.map((item: any) => item.description || item.title || '').join(' ').toLowerCase() || '';
   const combinedText = requestText + ' ' + planText;
 
   // Priority order: Content Analysis -> Learning Design -> Course Structure
@@ -111,6 +111,7 @@ const workflow = new StateGraph(PlannerGraphStateObj, GraphConfiguration)
 
 export const graph = workflow.compile();
 graph.name = "Open SWE - Planner";
+
 
 
 
