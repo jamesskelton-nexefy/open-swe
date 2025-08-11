@@ -7,10 +7,12 @@ let pdfParse: any;
 const getPdfParse = async () => {
   if (!pdfParse) {
     try {
-      pdfParse = (await import("pdf-parse")).default;
+      // Try ES module import first
+      const pdfParseModule = await import("pdf-parse");
+      pdfParse = pdfParseModule.default || pdfParseModule;
     } catch (error) {
-      // Fallback to require for CommonJS compatibility
-      pdfParse = eval('require')("pdf-parse");
+      logger.error("Failed to import pdf-parse", { error: String(error) });
+      throw new Error("pdf-parse library is not available");
     }
   }
   return pdfParse;
@@ -118,5 +120,6 @@ export function createPDFProcessorToolFields() {
     schema: pdfProcessorSchema,
   };
 }
+
 
 
