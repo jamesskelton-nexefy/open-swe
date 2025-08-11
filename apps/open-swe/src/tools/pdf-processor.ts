@@ -2,14 +2,23 @@ import { tool } from "@langchain/core/tools";
 import { z } from "zod";
 import { createLogger, LogLevel } from "../utils/logger.js";
 
-// Dynamic import for pdf-parse to avoid initialization issues
-const getPdfParse = async () => {
-  try {
-    const pdfParseModule = await import("pdf-parse");
-    return pdfParseModule.default || pdfParseModule;
-  } catch (error) {
-    throw new Error(`Failed to load pdf-parse: ${error}`);
+// Import pdf-parse with proper error handling
+let pdfParseLib: any = null;
+
+const initializePdfParse = async () => {
+  if (!pdfParseLib) {
+    try {
+      // Try dynamic import first
+      const module = await import("pdf-parse");
+      pdfParseLib = module.default || module;
+    } catch (importError) {
+      logger.error("Failed to import pdf-parse via dynamic import", { 
+        error: String(importError) 
+      });
+      throw new Error("pdf-parse library is not available");
+    }
   }
+  return pdfParseLib;
 };
 
 const logger = createLogger(LogLevel.INFO, "PDFProcessor");
@@ -114,6 +123,7 @@ export function createPDFProcessorToolFields() {
     schema: pdfProcessorSchema,
   };
 }
+
 
 
 
