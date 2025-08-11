@@ -78,6 +78,15 @@ const workflow = new StateGraph(PlannerGraphStateObj, GraphConfiguration)
   .addNode("interrupt-proposed-plan", interruptProposedPlan, {
     ends: [END, "determine-needs-context"],
   })
+  .addNode("content-analysis-approval", contentAnalysisApproval, {
+    ends: [END, "learning-design-approval", "interrupt-proposed-plan"],
+  })
+  .addNode("learning-design-approval", learningDesignApproval, {
+    ends: [END, "course-structure-approval", "interrupt-proposed-plan"],
+  })
+  .addNode("course-structure-approval", courseStructureApproval, {
+    ends: [END, "interrupt-proposed-plan"],
+  })
   .addNode("determine-needs-context", determineNeedsContext, {
     ends: ["generate-plan-context-action", "generate-plan"],
   })
@@ -91,9 +100,17 @@ const workflow = new StateGraph(PlannerGraphStateObj, GraphConfiguration)
   )
   .addEdge("diagnose-error", "generate-plan-context-action")
   .addEdge("generate-plan", "notetaker")
-  .addEdge("notetaker", "interrupt-proposed-plan");
+  .addConditionalEdges(
+    "notetaker",
+    routeToApprovalOrPlan,
+    ["content-analysis-approval", "learning-design-approval", "course-structure-approval", "interrupt-proposed-plan"],
+  )
+  .addEdge("content-analysis-approval", "learning-design-approval")
+  .addEdge("learning-design-approval", "course-structure-approval")
+  .addEdge("course-structure-approval", "interrupt-proposed-plan");
 
 export const graph = workflow.compile();
 graph.name = "Open SWE - Planner";
+
 
 
