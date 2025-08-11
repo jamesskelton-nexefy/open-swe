@@ -578,8 +578,6 @@ export class LearningDesignTemplates {
     difficulty: DifficultyLevel = "beginner",
     pedagogicalApproach: string = "constructivist"
   ): Partial<Lesson> {
-    const approach = PEDAGOGICAL_APPROACHES[pedagogicalApproach];
-    
     return {
       difficulty,
       tags: [subject.toLowerCase(), difficulty, pedagogicalApproach],
@@ -805,6 +803,7 @@ export const LEARNING_DESIGN_QUALITY_CHECKLIST: QualityChecklistItem[] = [
 ];
 
 // All templates and frameworks are already exported above
+
 
 
 
