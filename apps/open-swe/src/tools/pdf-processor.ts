@@ -61,7 +61,7 @@ export const createPDFProcessorTool = () => {
         const pdfBuffer = Buffer.from(base64Data, "base64");
 
         // Extract text using pdf-parse
-        const pdfParseLib = await getPdfParse();
+        const pdfParseLib = await initializePdfParse();
         const pdfData = await pdfParseLib(pdfBuffer);
 
         const wordCount = pdfData.text.split(/\s+/).filter(Boolean).length;
@@ -123,6 +123,7 @@ export function createPDFProcessorToolFields() {
     schema: pdfProcessorSchema,
   };
 }
+
 
 
 
