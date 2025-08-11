@@ -17,11 +17,11 @@ const logger = createLogger(LogLevel.INFO, "LearningDesignApproval");
  */
 export async function learningDesignApproval(
   state: PlannerGraphState,
-  config?: RunnableConfig,
+  _config?: RunnableConfig,
 ): Promise<Partial<PlannerGraphState>> {
   logger.info("Starting learning design approval process");
 
-  const { messages, plan } = state;
+  const { messages, taskPlan } = state;
 
   // Check if this is an e-learning related request
   const isELearningRequest = messages.some(msg => 
@@ -190,3 +190,4 @@ function formatLearningDesignSummary(elements: LearningDesignElements): string {
 
   return summary.length > 0 ? summary.join('\n') : 'Standard e-learning content development approach';
 }
+
