@@ -662,3 +662,48 @@ export function createWriteDefaultTsConfigToolFields(
     schema: writeDefaultTsConfigToolSchema,
   };
 }
+
+export function createPDFProcessorToolFields() {
+  const pdfProcessorSchema = z.object({
+    base64Data: z
+      .string()
+      .describe("The base64 encoded PDF data to extract text from"),
+    filename: z
+      .string()
+      .optional()
+      .describe("Optional filename for logging and metadata purposes"),
+  });
+
+  return {
+    name: "pdf_processor",
+    description: "Extracts text content from base64 encoded PDF files and provides metadata about the document",
+    schema: pdfProcessorSchema,
+  };
+}
+
+export function createContentAnalyzerToolFields() {
+  const contentAnalyzerSchema = z.object({
+    content: z
+      .string()
+      .describe("The text content to analyze for learning objectives and key concepts"),
+    contentType: z
+      .enum(["pdf_text", "user_prompt", "mixed"])
+      .default("pdf_text")
+      .describe("The type of content being analyzed"),
+    targetAudience: z
+      .string()
+      .optional()
+      .describe("Optional target audience description (e.g., 'undergraduate students', 'professionals')"),
+    subject: z
+      .string()
+      .optional()
+      .describe("Optional subject area or domain"),
+  });
+
+  return {
+    name: "content_analyzer",
+    description: "Analyzes content to identify learning objectives, key concepts, and optimal learning structure using instructional design principles",
+    schema: contentAnalyzerSchema,
+  };
+}
+
