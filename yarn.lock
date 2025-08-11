@@ -4117,6 +4117,7 @@ __metadata:
     "@types/jest": ^29.5.0
     "@types/jsonwebtoken": ^9.0.10
     "@types/node": ^22.13.5
+    "@types/pdf-parse": ^1.1.5
     bcrypt: ^6.0.0
     commander: ^14.0.0
     diff: ^8.0.1
@@ -4131,6 +4132,7 @@ __metadata:
     jsonwebtoken: ^9.0.2
     langchain: ^0.3.26
     langsmith: ^0.3.29
+    pdf-parse: ^1.1.1
     prettier: ^3.5.2
     ts-jest: ^29.1.0
     tsx: ^4.20.3
@@ -7018,6 +7020,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/pdf-parse@npm:^1.1.5":
+  version: 1.1.5
+  resolution: "@types/pdf-parse@npm:1.1.5"
+  dependencies:
+    "@types/node": "*"
+  checksum: f1f1ca0376160994cd4266d721ce577dd8692130d1aaf76f43bcd1c326ce472353dec5a81fd17cd380ce9c31a483db258ea59cde988d5bc5cb5664d00556f41c
+  languageName: node
+  linkType: hard
+
 "@types/prismjs@npm:^1.26.0":
   version: 1.26.5
   resolution: "@types/prismjs@npm:1.26.5"
@@ -9482,7 +9493,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^3.2.7":
+"debug@npm:^3.1.0, debug@npm:^3.2.7":
   version: 3.2.7
   resolution: "debug@npm:3.2.7"
   dependencies:
@@ -15851,6 +15862,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-ensure@npm:^0.0.0":
+  version: 0.0.0
+  resolution: "node-ensure@npm:0.0.0"
+  checksum: 1124623beb1dec66889794286ec1761ac3bfac42ce93b8652903efa5af14227edce5bafa06c4e0675cdc850360931d7c9413e3b5406150f05b2c9bf5bb3ccce4
+  languageName: node
+  linkType: hard
+
 "node-fetch@npm:2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
@@ -16657,6 +16675,16 @@ __metadata:
   version: 2.0.1
   resolution: "pathval@npm:2.0.1"
   checksum: 280e71cfd86bb5d7ff371fe2752997e5fa82901fcb209abf19d4457b7814f1b4a17845dfb17bd28a596ccdb0ecea178720ce23dacfa9c841f37804b700647810
+  languageName: node
+  linkType: hard
+
+"pdf-parse@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "pdf-parse@npm:1.1.1"
+  dependencies:
+    debug: ^3.1.0
+    node-ensure: ^0.0.0
+  checksum: 5d63a8be1b3b8915618b1b76350409513fdd7fe03c77056b2dd7a1c2da28a11e297645e33bb4e953e2c1cd0ae66980f30fd0bed2979877f894347962d9647241
   languageName: node
   linkType: hard
 
