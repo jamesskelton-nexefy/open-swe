@@ -810,13 +810,6 @@ export const LEARNING_DESIGN_QUALITY_CHECKLIST: QualityChecklistItem[] = [
   },
 ];
 
-// Export all templates and frameworks
-export {
-  ADDIE_FRAMEWORK,
-  BLOOM_ACTION_VERBS,
-  LEARNING_STYLE_TEMPLATES,
-  ASSESSMENT_STRATEGIES,
-  PEDAGOGICAL_APPROACHES,
-  LEARNING_DESIGN_QUALITY_CHECKLIST,
-};
+// All templates and frameworks are already exported above
+
 
