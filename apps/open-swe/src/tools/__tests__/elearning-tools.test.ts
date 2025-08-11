@@ -1,8 +1,6 @@
-import { 
-  createContentGeneratorTool,
-  createLessonBuilderTool,
-  createAssessmentCreatorTool,
-} from "../elearning/index.js";
+import { createContentGeneratorTool } from "../elearning/content-generator.js";
+import { createLessonBuilderTool } from "../elearning/lesson-builder.js";
+import { createAssessmentCreatorTool } from "../elearning/assessment-creator.js";
 
 // Mock config for testing
 const mockConfig = {
@@ -103,3 +101,4 @@ describe("E-Learning Tools", () => {
     });
   });
 });
+
