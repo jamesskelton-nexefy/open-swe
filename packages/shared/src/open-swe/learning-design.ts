@@ -215,7 +215,7 @@ export const LEARNING_STYLE_TEMPLATES: Record<LearningStyle, LearningStyleTempla
       "Include drag-and-drop interactions",
       "Encourage experimentation",
     ],
-    assessmentMethods: ["practical", "assignment"],
+    assessmentMethods: ["practical"],
     designPrinciples: [
       "Maximize interactivity",
       "Provide immediate feedback",
@@ -819,3 +819,4 @@ export {
   PEDAGOGICAL_APPROACHES,
   LEARNING_DESIGN_QUALITY_CHECKLIST,
 };
+
