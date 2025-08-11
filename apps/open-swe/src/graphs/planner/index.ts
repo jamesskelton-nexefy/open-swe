@@ -33,6 +33,37 @@ function takeActionOrGeneratePlan(
   return "generate-plan";
 }
 
+function routeToApprovalOrPlan(
+  state: PlannerGraphState,
+): "content-analysis-approval" | "learning-design-approval" | "course-structure-approval" | "interrupt-proposed-plan" {
+  const { messages, plan } = state;
+  
+  // Check if this is an e-learning related request that needs approval
+  const requestText = messages.map(msg => msg.content.toString().toLowerCase()).join(' ');
+  const planText = plan?.map(item => item.description || item.title || '').join(' ').toLowerCase() || '';
+  const combinedText = requestText + ' ' + planText;
+
+  // Priority order: Content Analysis -> Learning Design -> Course Structure
+  
+  // Check for content analysis needs (PDF processing, content extraction)
+  if (/pdf|extract|analyze|content|document|text|parse|process/.test(combinedText)) {
+    return "content-analysis-approval";
+  }
+  
+  // Check for learning design needs (objectives, instructional strategies)
+  if (/learning|objective|bloom|instructional|pedagogical|assessment|strategy/.test(combinedText)) {
+    return "learning-design-approval";
+  }
+  
+  // Check for course structure needs (modules, sequencing, organization)
+  if (/course|module|lesson|structure|sequence|path|curriculum|organize/.test(combinedText)) {
+    return "course-structure-approval";
+  }
+  
+  // Default to standard plan interruption
+  return "interrupt-proposed-plan";
+}
+
 const workflow = new StateGraph(PlannerGraphStateObj, GraphConfiguration)
   .addNode("prepare-graph-state", prepareGraphState, {
     ends: [END, "initialize-sandbox"],
@@ -64,4 +95,5 @@ const workflow = new StateGraph(PlannerGraphStateObj, GraphConfiguration)
 
 export const graph = workflow.compile();
 graph.name = "Open SWE - Planner";
+
 
