@@ -11,3 +11,6 @@ export {
 export * from "./grep.js";
 export * from "./install-dependencies.js";
 export * from "./default-tsconfig.js";
+export * from "./pdf-processor.js";
+export * from "./elearning/content-analyzer.js";
+
