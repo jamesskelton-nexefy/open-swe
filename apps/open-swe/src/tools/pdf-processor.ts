@@ -2,8 +2,19 @@ import { tool } from "@langchain/core/tools";
 import { z } from "zod";
 import { createLogger, LogLevel } from "../utils/logger.js";
 
-// Import pdf-parse for text extraction
-const pdfParse = require("pdf-parse");
+// Dynamic import for pdf-parse to handle ES modules
+let pdfParse: any;
+const getPdfParse = async () => {
+  if (!pdfParse) {
+    try {
+      pdfParse = (await import("pdf-parse")).default;
+    } catch (error) {
+      // Fallback to require for CommonJS compatibility
+      pdfParse = eval('require')("pdf-parse");
+    }
+  }
+  return pdfParse;
+};
 
 const logger = createLogger(LogLevel.INFO, "PDFProcessor");
 
@@ -106,3 +117,4 @@ export function createPDFProcessorToolFields() {
     schema: pdfProcessorSchema,
   };
 }
+
