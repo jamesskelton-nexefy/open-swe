@@ -32,7 +32,7 @@ import { QuizCreator } from "./QuizCreator";
 import { ContentPreview } from "./ContentPreview";
 
 // Types based on our e-learning types
-interface CourseModule {
+export interface CourseModule {
   id: string;
   title: string;
   description: string;
@@ -44,7 +44,7 @@ interface CourseModule {
   difficulty: "beginner" | "intermediate" | "advanced";
 }
 
-interface Course {
+export interface Course {
   id: string;
   title: string;
   description: string;
@@ -57,7 +57,7 @@ interface Course {
   prerequisites: string[];
 }
 
-interface CourseEditorProps {
+export interface CourseEditorProps {
   initialCourse?: Partial<Course>;
   onSave?: (course: Course) => void;
   onPreview?: (course: Course) => void;
@@ -646,4 +646,5 @@ export function CourseEditor({ initialCourse, onSave, onPreview }: CourseEditorP
     </div>
   );
 }
+
 
