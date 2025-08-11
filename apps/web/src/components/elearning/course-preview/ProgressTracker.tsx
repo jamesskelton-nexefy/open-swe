@@ -33,6 +33,9 @@ import {
 import type { Course, CourseModule } from "../course-builder/CourseEditor";
 import type { CourseProgress } from "./CoursePlayer";
 
+// Re-export CourseProgress for other components
+export type { CourseProgress } from "./CoursePlayer";
+
 export interface ProgressTrackerProps {
   course: Course;
   progress: CourseProgress;
@@ -715,3 +718,4 @@ function CompactProgressTracker({
     </div>
   );
 }
+
