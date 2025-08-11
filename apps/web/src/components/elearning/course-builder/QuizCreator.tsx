@@ -31,7 +31,7 @@ import {
 } from "lucide-react";
 
 // Question types based on our e-learning types
-interface QuizQuestion {
+export interface QuizQuestion {
   id: string;
   type: "multiple_choice" | "true_false" | "short_answer" | "essay" | "matching" | "fill_blank";
   question: string;
@@ -51,7 +51,7 @@ interface QuizQuestion {
   order: number;
 }
 
-interface QuizSettings {
+export interface QuizSettings {
   timeLimit?: number;
   attempts: number;
   passingScore: number;
@@ -63,7 +63,7 @@ interface QuizSettings {
   preventCheating: boolean;
 }
 
-interface Quiz {
+export interface Quiz {
   id: string;
   title: string;
   description: string;
@@ -77,7 +77,7 @@ interface Quiz {
   order: number;
 }
 
-interface QuizCreatorProps {
+export interface QuizCreatorProps {
   initialQuiz?: Partial<Quiz>;
   onSave: (quiz: Quiz) => void;
   onCancel: () => void;
@@ -894,3 +894,4 @@ function QuestionEditor({ question, onSave, onCancel }: QuestionEditorProps) {
     </Card>
   );
 }
+
