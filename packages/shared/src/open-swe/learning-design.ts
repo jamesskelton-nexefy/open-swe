@@ -538,12 +538,8 @@ export class LearningDesignTemplates {
 
   static generateAssessmentTemplate(
     type: AssessmentStrategy["type"],
-    bloomLevel: BloomLevel,
     difficulty: DifficultyLevel = "beginner"
   ): Partial<Assessment> {
-    const strategy = ASSESSMENT_STRATEGIES[type];
-    const methods = strategy.methods;
-    
     return {
       type,
       settings: {
@@ -809,6 +805,7 @@ export const LEARNING_DESIGN_QUALITY_CHECKLIST: QualityChecklistItem[] = [
 ];
 
 // All templates and frameworks are already exported above
+
 
 
 
