@@ -32,33 +32,10 @@ import {
   RotateCcw
 } from "lucide-react";
 
-// Types for course structure
-interface CourseModule {
-  id: string;
-  title: string;
-  description: string;
-  type: "lesson" | "quiz" | "assessment";
-  duration: number;
-  order: number;
-  content?: any;
-  learningObjectives: string[];
-  difficulty: "beginner" | "intermediate" | "advanced";
-}
+// Import types from CourseEditor to maintain consistency
+import type { CourseModule, Course } from "./CourseEditor";
 
-interface Course {
-  id: string;
-  title: string;
-  description: string;
-  targetAudience: string;
-  estimatedDuration: number;
-  difficulty: "beginner" | "intermediate" | "advanced";
-  learningObjectives: string[];
-  modules: CourseModule[];
-  tags: string[];
-  prerequisites: string[];
-}
-
-interface ContentPreviewProps {
+export interface ContentPreviewProps {
   course: Course;
   onEdit?: () => void;
   fullscreen?: boolean;
@@ -677,3 +654,4 @@ function DefaultModulePreview({ module }: { module: CourseModule }) {
     </Card>
   );
 }
+
