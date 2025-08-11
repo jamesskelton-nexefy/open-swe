@@ -521,8 +521,6 @@ export class LearningDesignTemplates {
     learningStyle: LearningStyle,
     difficulty: DifficultyLevel = "beginner"
   ): Partial<ContentBlock> {
-    const styleTemplate = LEARNING_STYLE_TEMPLATES[learningStyle];
-    
     return {
       type,
       metadata: {
@@ -811,5 +809,6 @@ export const LEARNING_DESIGN_QUALITY_CHECKLIST: QualityChecklistItem[] = [
 ];
 
 // All templates and frameworks are already exported above
+
 
 
