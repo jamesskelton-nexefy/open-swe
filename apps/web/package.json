@@ -20,6 +20,7 @@
     "clean": "rm -rf .turbo .next || true && rm next-env.d.ts || true"
   },
   "dependencies": {
+    "@hello-pangea/dnd": "^18.0.1",
     "@langchain/core": "^0.3.65",
     "@langchain/langgraph": "^0.3.8",
     "@langchain/langgraph-sdk": "^0.0.95",
