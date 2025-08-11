@@ -13,4 +13,8 @@ export * from "./install-dependencies.js";
 export * from "./default-tsconfig.js";
 export * from "./pdf-processor.js";
 export * from "./elearning/content-analyzer.js";
+export * from "./elearning/content-generator.js";
+export * from "./elearning/lesson-builder.js";
+export * from "./elearning/assessment-creator.js";
+
 
