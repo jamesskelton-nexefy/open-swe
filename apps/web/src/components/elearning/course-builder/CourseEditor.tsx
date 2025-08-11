@@ -572,15 +572,70 @@ export function CourseEditor({ initialCourse, onSave, onPreview }: CourseEditorP
             <div className="mt-4">
               {editingModule.type === "lesson" && (
                 <LessonBuilder
-                  initialLesson={editingModule}
-                  onSave={saveModule}
+                  initialLesson={{
+                    id: editingModule.id,
+                    title: editingModule.title,
+                    description: editingModule.description,
+                    type: "lesson" as const,
+                    duration: editingModule.duration,
+                    difficulty: editingModule.difficulty,
+                    learningObjectives: editingModule.learningObjectives,
+                    order: editingModule.order,
+                    sections: [],
+                    assessments: { formative: [], summative: [] },
+                    resources: [],
+                  }}
+                  onSave={(lesson) => {
+                    const updatedModule: CourseModule = {
+                      ...editingModule,
+                      title: lesson.title,
+                      description: lesson.description,
+                      duration: lesson.duration,
+                      difficulty: lesson.difficulty,
+                      learningObjectives: lesson.learningObjectives,
+                      content: lesson,
+                    };
+                    saveModule(updatedModule);
+                  }}
                   onCancel={() => setShowModuleDialog(false)}
                 />
               )}
               {(editingModule.type === "quiz" || editingModule.type === "assessment") && (
                 <QuizCreator
-                  initialQuiz={editingModule}
-                  onSave={saveModule}
+                  initialQuiz={{
+                    id: editingModule.id,
+                    title: editingModule.title,
+                    description: editingModule.description,
+                    type: editingModule.type as "quiz" | "assessment",
+                    duration: editingModule.duration,
+                    difficulty: editingModule.difficulty,
+                    learningObjectives: editingModule.learningObjectives,
+                    order: editingModule.order,
+                    questions: [],
+                    settings: {
+                      attempts: 3,
+                      passingScore: 80,
+                      randomizeQuestions: false,
+                      randomizeOptions: false,
+                      showFeedback: true,
+                      allowReview: true,
+                      showCorrectAnswers: true,
+                      preventCheating: false,
+                    },
+                    totalPoints: 0,
+                  }}
+                  onSave={(quiz) => {
+                    const updatedModule: CourseModule = {
+                      ...editingModule,
+                      title: quiz.title,
+                      description: quiz.description,
+                      duration: quiz.duration,
+                      difficulty: quiz.difficulty,
+                      learningObjectives: quiz.learningObjectives,
+                      content: quiz,
+                    };
+                    saveModule(updatedModule);
+                  }}
                   onCancel={() => setShowModuleDialog(false)}
                 />
               )}
@@ -591,3 +646,4 @@ export function CourseEditor({ initialCourse, onSave, onPreview }: CourseEditorP
     </div>
   );
 }
+
