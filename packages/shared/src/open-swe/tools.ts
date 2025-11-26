@@ -662,3 +662,205 @@ export function createWriteDefaultTsConfigToolFields(
     schema: writeDefaultTsConfigToolSchema,
   };
 }
+
+export function createPDFProcessorToolFields() {
+  const pdfProcessorSchema = z.object({
+    base64Data: z
+      .string()
+      .describe("The base64 encoded PDF data to extract text from"),
+    filename: z
+      .string()
+      .optional()
+      .describe("Optional filename for logging and metadata purposes"),
+  });
+
+  return {
+    name: "pdf_processor",
+    description: "Extracts text content from base64 encoded PDF files and provides metadata about the document",
+    schema: pdfProcessorSchema,
+  };
+}
+
+export function createContentAnalyzerToolFields() {
+  const contentAnalyzerSchema = z.object({
+    content: z
+      .string()
+      .describe("The text content to analyze for learning objectives and key concepts"),
+    contentType: z
+      .enum(["pdf_text", "user_prompt", "mixed"])
+      .default("pdf_text")
+      .describe("The type of content being analyzed"),
+    targetAudience: z
+      .string()
+      .optional()
+      .describe("Optional target audience description (e.g., 'undergraduate students', 'professionals')"),
+    subject: z
+      .string()
+      .optional()
+      .describe("Optional subject area or domain"),
+  });
+
+  return {
+    name: "content_analyzer",
+    description: "Analyzes content to identify learning objectives, key concepts, and optimal learning structure using instructional design principles",
+    schema: contentAnalyzerSchema,
+  };
+}
+
+export function createContentGeneratorToolFields() {
+  const contentGeneratorSchema = z.object({
+    sourceContent: z
+      .string()
+      .describe("The source content (PDF text, user prompt, or existing material) to generate learning content from"),
+    targetAudience: z
+      .string()
+      .describe("Target audience description (e.g., 'undergraduate students', 'professionals', 'beginners')"),
+    subject: z
+      .string()
+      .describe("Subject area or domain of the content"),
+    learningObjectives: z
+      .array(z.string())
+      .describe("List of learning objectives to address in the generated content"),
+    preferredLearningStyles: z
+      .array(z.enum(["visual", "auditory", "kinesthetic", "reading_writing"]))
+      .default(["visual", "reading_writing"])
+      .describe("Preferred learning styles to accommodate"),
+    difficulty: z
+      .enum(["beginner", "intermediate", "advanced"])
+      .default("beginner")
+      .describe("Difficulty level of the content"),
+    estimatedDuration: z
+      .number()
+      .positive()
+      .default(30)
+      .describe("Estimated duration in minutes for the content"),
+    pedagogicalApproach: z
+      .enum(["constructivist", "behaviorist", "cognitivist", "experiential"])
+      .default("constructivist")
+      .describe("Pedagogical approach to use for content generation"),
+    requireApproval: z
+      .boolean()
+      .default(true)
+      .describe("Whether to require human approval before generating detailed content"),
+  });
+
+  return {
+    name: "content_generator",
+    description: "Generates structured learning content with instructional design principles and optional human approval checkpoints",
+    schema: contentGeneratorSchema,
+  };
+}
+
+export function createLessonBuilderToolFields() {
+  const lessonBuilderSchema = z.object({
+    lessonTitle: z
+      .string()
+      .describe("Title of the lesson to be created"),
+    subject: z
+      .string()
+      .describe("Subject area or domain of the lesson"),
+    targetAudience: z
+      .string()
+      .describe("Target audience description (e.g., 'undergraduate students', 'professionals')"),
+    sourceContent: z
+      .string()
+      .describe("Source content to base the lesson on (PDF text, existing materials, etc.)"),
+    learningObjectives: z
+      .array(z.string())
+      .describe("List of learning objectives for this lesson"),
+    difficulty: z
+      .enum(["beginner", "intermediate", "advanced"])
+      .default("beginner")
+      .describe("Difficulty level of the lesson"),
+    estimatedDuration: z
+      .number()
+      .positive()
+      .default(45)
+      .describe("Estimated duration in minutes for the lesson"),
+    pedagogicalApproach: z
+      .enum(["constructivist", "behaviorist", "cognitivist", "experiential"])
+      .default("constructivist")
+      .describe("Pedagogical approach to use for lesson design"),
+    preferredLearningStyles: z
+      .array(z.enum(["visual", "auditory", "kinesthetic", "reading_writing"]))
+      .default(["visual", "reading_writing"])
+      .describe("Preferred learning styles to accommodate"),
+    includeAssessments: z
+      .boolean()
+      .default(true)
+      .describe("Whether to include formative and summative assessments"),
+    requireApproval: z
+      .boolean()
+      .default(true)
+      .describe("Whether to require human approval for lesson structure before detailed content creation"),
+  });
+
+  return {
+    name: "lesson_builder",
+    description: "Builds comprehensive lessons with instructional design principles and human approval checkpoints for lesson structure",
+    schema: lessonBuilderSchema,
+  };
+}
+
+export function createAssessmentCreatorToolFields() {
+  const assessmentCreatorSchema = z.object({
+    assessmentTitle: z
+      .string()
+      .describe("Title of the assessment to be created"),
+    assessmentType: z
+      .enum(["diagnostic", "formative", "summative"])
+      .describe("Type of assessment (diagnostic, formative, or summative)"),
+    subject: z
+      .string()
+      .describe("Subject area or domain of the assessment"),
+    learningObjectives: z
+      .array(z.string())
+      .describe("Learning objectives that this assessment should measure"),
+    sourceContent: z
+      .string()
+      .describe("Source content to base assessment questions on"),
+    targetAudience: z
+      .string()
+      .describe("Target audience description (e.g., 'undergraduate students', 'professionals')"),
+    difficulty: z
+      .enum(["beginner", "intermediate", "advanced"])
+      .default("beginner")
+      .describe("Difficulty level of the assessment"),
+    questionTypes: z
+      .array(z.enum(["multiple_choice", "true_false", "short_answer", "essay", "practical", "peer_review"]))
+      .default(["multiple_choice", "short_answer"])
+      .describe("Types of questions to include in the assessment"),
+    numberOfQuestions: z
+      .number()
+      .positive()
+      .default(10)
+      .describe("Total number of questions to generate"),
+    timeLimit: z
+      .number()
+      .positive()
+      .optional()
+      .describe("Time limit for the assessment in minutes"),
+    passingScore: z
+      .number()
+      .min(0)
+      .max(100)
+      .default(80)
+      .describe("Passing score percentage for the assessment"),
+    bloomLevels: z
+      .array(z.enum(["remember", "understand", "apply", "analyze", "evaluate", "create"]))
+      .default(["remember", "understand", "apply"])
+      .describe("Bloom's taxonomy levels to include in the assessment"),
+    requireApproval: z
+      .boolean()
+      .default(true)
+      .describe("Whether to require human approval for assessment strategy before generating questions"),
+  });
+
+  return {
+    name: "assessment_creator",
+    description: "Creates comprehensive assessments with instructional design principles and human approval checkpoints for assessment strategy",
+    schema: assessmentCreatorSchema,
+  };
+}
+
+

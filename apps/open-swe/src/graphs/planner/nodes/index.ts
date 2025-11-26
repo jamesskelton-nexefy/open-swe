@@ -5,3 +5,7 @@ export * from "./notetaker.js";
 export * from "./proposed-plan.js";
 export * from "./prepare-state.js";
 export * from "./determine-needs-context.js";
+export * from "./learning-design-approval.js";
+export * from "./content-analysis-approval.js";
+export * from "./course-structure-approval.js";
+
